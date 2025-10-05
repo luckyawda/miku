@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miku com Música 💙</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: url('https://media.tenor.com/vzUHx3omPhMAAAAM/hola-ja.gif') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    font-family: 'Comic Sans MS', cursive;
+  }
+
+  /* GIF da Miku */
+  #miku {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 130px;
+    transition: transform 0.3s;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  #miku:hover {
+    transform: scale(1.15);
+  }
+
+  /* Mensagens flutuantes */
+  .mensagem {
+    position: absolute;
+    color: #fff;
+    font-size: 1.3em;
+    text-shadow: 0 0 10px #00eaff, 0 0 20px #33ccff;
+    animation: flutuar 3s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes flutuar {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-150px); }
+  }
+
+  /* Corações flutuantes */
+  .coracao {
+    position: absolute;
+    color: #ff99cc;
+    font-size: 1.5em;
+    opacity: 0.8;
+    animation: subir 6s linear forwards;
+    pointer-events: none;
+  }
+
+  @keyframes subir {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- GIF da Hatsune Miku -->
+<img id="miku" src="https://clipground.com/images/hatsune-miku-gif-clipart-3.gif" alt="Hatsune Miku">
+
+<!-- Música -->
+<audio id="musica" src="girl in red - You will be my girl (we fell in love in October) (Lyrics).mp3"></audio>
+
+<script>
+  const mensagens = [
+    "💙 you are perfect!",
+    "🎵 voce merece o mundo!",
+    "✨ Você é incrível!",
+    "🌸 Tenha um dia mágico!",
+    "💫 Continue brilhando!",
+    "💕 voce e linda !",
+    "🌈 Sorria, você é especial!",
+    "⭐ Nunca pare de sonhar!",
+    "💜 Brilhe do seu jeito!",
+    "🎶 tudo de bom pra voce sempre!"
+  ];
+
+  // Cria mensagens automáticas
+  function criarMensagem() {
+    const msg = document.createElement('div');
+    msg.classList.add('mensagem');
+    msg.textContent = mensagens[Math.floor(Math.random() * mensagens.length)];
+
+    const x = Math.random() * (window.innerWidth - 200);
+    const y = Math.random() * (window.innerHeight - 200);
+    msg.style.left = `${x}px`;
+    msg.style.top = `${y}px`;
+
+    document.body.appendChild(msg);
+    setTimeout(() => msg.remove(), 3000);
+  }
+
+  // Cria corações flutuantes
+  function criarCoracao() {
+    const coracao = document.createElement('div');
+    coracao.classList.add('coracao');
+    coracao.textContent = ['💖', '💜', '💙', '💞', '💕'][Math.floor(Math.random() * 5)];
+    coracao.style.left = Math.random() * window.innerWidth + 'px';
+    coracao.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    document.body.appendChild(coracao);
+    setTimeout(() => coracao.remove(), 6000);
+  }
+
+  // Intervalos automáticos
+  setInterval(criarMensagem, 1500);
+  setInterval(criarCoracao, 400);
+
+  // Música ao clicar na Miku 🎶
+  const miku = document.getElementById('miku');
+  const musica = document.getElementById('musica');
+  let tocando = false;
+
+  miku.addEventListener('click', () => {
+    if (!tocando) {
+      musica.play();
+      tocando = true;
+    } else {
+      musica.pause();
+      musica.currentTime = 0;
+      tocando = false;
+    }
+  });
+</script>
+
+</body>
+</html>
